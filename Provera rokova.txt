@@ -1,0 +1,18 @@
+Provera rokova
+
+1. Kratak opis:
+	Apotekar proverava datum isteka roka lekovima i u skladu sa tim vrši sortiranje.
+2. Učesnici:
+	Apotekar
+3. Preduslovi:
+	Sistem je u ispravnom stanju.
+4. Postuslovi: 
+	Lekovi/kreme su soritrani po rokovima. Nema lekova/krema sa isteklim rokom.
+5. Osnovni tok:
+	1. Apotekar proverava u sistemu kojim lekovima je istekao rok.
+	2. Apotekar uklanja lekove sa isteklim rokom sa polica i odlaže ih na mesto predviđeno za to.	 
+	3. Apotekar ažuririra stanje magacina lekova u sistemu. 
+	4. Apotekar proveri da li su lekovi na policama sortirani po datumu isteka roka. Ako nisu sortirani, sortira ih.	
+	5. U slučaju da je bilo lekova kojima je istekao rok, prelazi se na slučaj upotrebe "Odlaganje neispravnih lekova".
+6. Alternativni tokovi:
+	2, 3, 5. Nema lekova sa isteklim rokom. Ovi koraci se preskaču. Slučaj upotrebe se nastavlja na sledećem koraku.
