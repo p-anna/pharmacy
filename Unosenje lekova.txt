@@ -1,0 +1,44 @@
+Unošenje novih preparata u sistem
+
+1. Kratak opis: Proces unošenja novih preparata u sistem.
+2. Akteri: Apotekar
+3. Preduslovi: Sistem je u ispravnom stanju, apotekar je obučen da koristi sistem, sva polja u spisku su popunjena, opsezi podataka u bazi su ispravno konfigurisani.
+4. Postuslovi: U sistem je uspešno dodat novi preparat.
+5. Osnovni tok:
+	1. Apotekar priprema spisak preparata koje treba uneti u sistem.
+	2. Apotekar otvara formular za unošenje podataka o novom preparatu.
+	3. Apotekar unosi bar-kod preparata u formular.
+	4. Apotekar unosi naziv preparata u formular.
+	5. Apotekar unosi šifru preparata u formular. 
+	6. Apotekar unosi ukupnu količinu preparata na stanju u formular.
+	7. Apotekar unosi datume isteka roka trajanja preparata, kao i količinu preparata na stanju čije 
+	trajanje ističe u tom roku.
+	8. Apotekar unosi cenu preparata u formular.
+	9. Apotekar unosi podatak da li preparat može da se izda bez recepta u formular.
+	10. Apotekar unosi opis preparata u formular.
+	Koraci 2-10 se ponavljaju dok god ima preparata na spisku.
+	11. Apotekar potvrđuje da je ispravno uneo sve podatke.
+	12. Apotekar potvrđuje unos novog leka i ažurira stanje sistema.
+6. Alternativni tokovi:
+	3a. Bar-kod već postoji u sistemu. Apotekar proverava da li se svi ostali podaci o preparatu sa spiska
+	poklapaju sa podacima odgovarajućeg preparata iz baze.
+		3a1. Podaci se poklapaju. Apotekar ustanovljava da je preparat već u sistemu. Slučaj 
+		upotrebe se nastavlja od koraka 2 sa sledećim preparatom sa spiska.
+		3a2. Podaci se ne poklapaju. Apotekar upoređuje bar-kod preparata sa kutije i sporni bar-kod 			i ažurira odgovarajuće redove u bazi ispravnim podacima (onim sa kutije).
+	4a. Naziv već postoji u sistemu. Apotekar proverava da li se svi ostali podaci o preparatu sa spiska
+	poklapaju sa podacima odgovarajućeg preparata iz baze.
+		4a1. Podaci se poklapaju. Apotekar ustanovljava da je preparat već u sistemu. Slučaj 
+		upotrebe se nastavlja od koraka 2 sa sledećim preparatom sa spiska.
+		4a2. Podaci se ne poklapaju. Apotekar proverava koji bar-kod odgovara nazivu i unosi 
+		ispravne podatke.
+	5a. Šifra već postoji. Apotekar proverava da li se svi ostali podaci o preparatu sa spiska
+	poklapaju sa podacima odgovarajućeg preparata iz baze.
+		5a1. Podaci se poklapaju. Apotekar ustanovljava da je preparat već u sistemu. Slučaj 
+		upotrebe se nastavlja od koraka 2 sa sledećim preparatom sa spiska.
+		5a2. Podaci se ne poklapaju. Apotekar proverava koji bar-kod odgovara šifri i unosi 
+		ispravne podatke.
+	 11. Apotekar primećuje grešku u podacima. Apotekar ispravlja grešku. Slučaj upotrebe se nastavlja na 
+	 koraku 12.
+7. Specijalni zahtevi:
+	Apotekar zahteva brzu i efikasnu komunikaciju sa bazom.
+	
