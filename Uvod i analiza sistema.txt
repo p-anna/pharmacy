@@ -1,0 +1,34 @@
+
+Uvod:
+
+
+Ovaj grupni projekat je izrađen u okviru predmeta "Informacioni sistemi" na master studijama Matematičkog fakulteta. Predstavlja predlog informacionog sistema fiktivne apoteke. Projekat je rađen na osnovu stvarnih potreba poslovanja dobijenih kombinovanjem informacija dobijenih iz više realnih apoteka. Napominjemo da se radi o manjim apotekama, a ne velikim trgovačkim lancima. Naime, u velikim lancima postoje još neke funkcionalnosti koje nisu obuhvaćene ovim informacionim sistemom, kao što su npr. kartice koje obezbeđuju popust stalnim mušterijama, prodaja lekova drugim manjim apotekama, itd. 
+
+Prilikom izrade ovog projekta, potrudili smo se da saznamo šta su mane postojećih sistema u realnim apotekama i da ih prevaziđemo. Često zbog nedostatka komunikacije među projektantima i korisnicima sistema nastanu problemi, pa smo želeli da to izbegnemo i stalno se konsultovali sa pravim korisnicima ovakvih sistema. Neki od problema sistema koji su korisnici najčešće navodili su neodgovarajući korisnički interfejs ili loša organizacija programa, kao i nedovoljno brz rad sistema. Imajući ovo u vidu, odredili smo sebi cilj da naš korisnički interfejs bude što intuitivniji i da korisnici našeg sistema budu u mogućnosti da jednostavno i lako pronađu sve što im je potrebno. Zbog potreba naših korisnika, dodatni zahtevi obuhvataju i unapređenje efikasnosti i optimizaciju samog programa. Takođe smo precizno odredili okvire projekta.  
+
+Konačno, naš sistem je bitan jer na prvo mesto stavlja potrebe korisnika i omogućava im prirodan i jednostavan rad.
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------
+
+analiza sistema: 
+
+U našem primeru, informacioni sistem apoteke obuhvata više stvari. Apoteka vrši prodaju preparata, kako gotovih, tako i onih koji se pripremaju u okviru apoteke, sa mogućnošću kupovine na recept. Preparati i sirovine za pravljenje lekova i krema se naručuju od dobavljača i skladište u magacin u okviru apoteke, vodeći računa o posebnim zahtevima za skladištenje pojedinih lekova (kao što su mesta zaštićena od svetlosti, mesta koja održavaju određenu temperaturu i slično). Posvećuje se posebna pažnja lekovima kojima uskoro ističe rok trajanja i redovno se vrši popis svih stvari u apoteci. U okviru apoteke se nalazi i laboratorija u kojoj apotekar vrši pripremu preparata. Takođe, neophodna je i redovna kontrola količina i stanja sirovina u laboratorijskom magacinu.
+
+U slučaju da se lek kupuje na recept, apotekar mora da unese podatke o kupcu, kao što su ime, prezime, broj zdravstvene knjižice, ime lekara koji je izdao recept itd. Kupac može da donese lekove kojima je istekao rok ili su iz bilo kog razloga neispravni, i apotekar je u obavezi da ih primi i odloži na adekvatan način. Sistem omogućava i unos novih lekova. 
+
+Akteri:
+Glavni akter u našem sistemu je apotekar koji obavlja najveći broj funkcija. Pored njega, učesnici su i upravnik apoteke, kupac, kao i dobavljač preparata i sirovina.
+
+Apotekar je zadužen za pravljenje preparata, njihovu prodaju, periodični popis stanja lekova i magacina (uključujući i laboratorijski magacin u kome se drže sirovine za pripremu preparata u samoj apoteci). Apotekar treba i da pravilno obeleži ambalaže u koje stavlja napravljene preparate i da ih, zajedno sa novim lekovima, unese u sistem. Mora da brine o pravilnom skladištenju lekova i isteku roka preparata. Osim toga, pazi i na to da je laboratorija uvek u ispravnom stanju. 
+
+Upravnik apoteke brine o nabavci lekova i rešava eventualne neispravnosti i probleme koji se mogu javiti.
+
+Dobavljači dostavljaju sveže sirovine i lekove u apoteku. Takođe kontrolišu samu dostavu i vode računa da je dostavljena tražena količina robe.
+
+Na kraju, u aktere se ubrajaju i sami kupci koji učestvuju u kupovini i naručivanju preparata.
+
+
