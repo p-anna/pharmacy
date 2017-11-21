@@ -1,0 +1,22 @@
+Lista Use case-ova
+
+1. Reorganizacija kupoprodaja
+	Kupoprodaja lekova 
+		Prodaja gotovih proizvoda
+		Prodaja proizvoda na narucivanje
+		Prodaja lekova na recept
+	Preuzimanje naručenih preparata
+
+2. Aktivnosti apotekara
+	Pravljenje preparata
+	Provera rokova upotrebe preparata
+	Unošenje novih korisnika u sistem
+	Odlaganje neispravnih proizvoda
+    Popis stanja apoteke i kontrola laboratorije
+	Prijem lekova kojima je istekao rok
+
+3. Aktivnosti upravnika
+	Naručivanje/nabavljenje preparata
+	Unošenje novih proizvoda u sistem
+	Ažuriranje podataka u sistemu   ? ne treba
+	
