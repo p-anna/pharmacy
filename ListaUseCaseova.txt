@@ -10,9 +10,9 @@ Lista Use case-ova
 2. Aktivnosti apotekara
 	Pravljenje preparata
 	Provera rokova upotrebe preparata
-	Unošenje novih korisnika u sistem
+	Unošenje novih kupaca u sistem
 	Odlaganje neispravnih proizvoda
-    Popis stanja apoteke i kontrola laboratorije
+	Popis stanja apoteke i kontrola laboratorije
 	Prijem lekova kojima je istekao rok
 
 3. Aktivnosti upravnika
