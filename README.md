@@ -13,5 +13,5 @@ Inicijalno zaduženje
 Šta treba uraditi uskoro
 https://docs.google.com/spreadsheets/d/1N2WSoB4CcdQHKlmt3QLfRD2Xrml9dQr6qqduyzG7n2o/edit?usp=sharing
 
-Feed back
+Feedback
 https://drive.google.com/file/d/1CKNvqshEdJ_lM9FTNzeabnGKwSFxybqR/view
