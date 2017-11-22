@@ -6,12 +6,12 @@ Inicijalno zaduženje
 - Marina Nikolić: koordinisati pravljenjem predloga arhitekture
 - Strahinja Milojević: koordinisati osmišljavanjem inicijalne strukture repozitorijuma
 - Nikola Ninkov: koordinisati pravljenjem prototipa
-- Matej Stanču: koordinisati modeliranje baze podataka
+- Matei Stanču: koordinisati modeliranje baze podataka
 
 
 
 Šta treba uraditi uskoro
--reorganizacija projekta u folderima
--uskladiti velicine slika itd.
--uskladiti terminologiju (ako ima jos problema)
--napraviti LATEX file i sve prebaciti u njemu
+https://docs.google.com/spreadsheets/d/1N2WSoB4CcdQHKlmt3QLfRD2Xrml9dQr6qqduyzG7n2o/edit?usp=sharing
+
+Feed back
+https://drive.google.com/file/d/1CKNvqshEdJ_lM9FTNzeabnGKwSFxybqR/view
