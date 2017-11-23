@@ -1,0 +1,34 @@
+Nabavljanje preparata
+
+1. Kratak opis: Upravnik naručuje potrebne preparata od dobavljača.
+2. Akteri: Upravnik apoteke.
+3. Preduslovi: Sistem je u ispravnom stanju. Apoteka ima pristup internetu. Upravnik apoteke je obučen za korišćenje sistema.
+4. Postuslovi: Potrebni preparati su naručeni i čeka se njihova isporuka.
+5. Osnovni tok: 
+	1. Upravnik dobija informacije iz sistema o prodatim preparatima u prethodnom periodu.
+	2. Upravnik za svaki preparat koji treba naručiti utvrđuje odgovarajućeg dobavljača iz sistema.
+	3. Upravnik analizom dobijenih informacija formira listu sortiranu po dobavljačima. 
+	4. Upravnik otvara formular za naručivanje preparata (narudžbenicu).
+	5. Upravnik unosi šifru dobavljača u formular.
+	6. Upravnik unosi šifru preparata u formular.
+	7. Upravnik unosi traženu količinu preparata u formular.
+	8. Sistem potvrđuje ispravnost podataka.
+	9. Upravnik šalje formular dobavljaču.
+	10. Sistem vraća potvrdu dobijenu od dobavljača da su željeni preparati uspešno naručeni.
+	Koraci 6 i 7 se ponavljaju dok god ima preparata koje treba poručiti od istog dobavljača.
+	Koraci 5-10 se ponavljaju dok god ima različitih dobavljača.
+6. Alternativni tokovi:
+	1. Nema prodatih preparata u prethodnom periodu. Slučaj upotrebe se završava.
+	2. Nema podatka o dobavljaču za traženi preparat. 
+	   Upravnik proverava uslove svih dobavljača na njihovom sajtu.
+	   Upravnik bira dobavljača sa najpovoljnijim uslovima.
+	   Upravnik ažurira podatke o dobavljaču za odgovarajući preparat u sistemu.
+	   Slučaj upotrebe se nastavlja na koraku 3. 
+	8. Neki od podataka nije ispravan. Upravnik ispravlja pogrešno unete podatke. 
+	   Slučaj upotrebe se nastavlja na koraku 8.
+	10. Sistem vraća poruku da određeni preparati nekog od dobavljača nisu dostupni na stanju.
+		Upravnik proverava uslove drugih dobavljača za taj preparat na njihovim sajtovima.
+		Upravnik pronalazi dobavljača sa najpovoljnijim uslovima.
+		Slučaj upotrebe se nastavlja na koraku 4 sa novim dobavljačem.
+7. Specijalni zahtevi:
+	Brz i pouzdan pristup internetu. Mogućnost pronalaženja šifre preparata na osnovu njegovog naziva.  

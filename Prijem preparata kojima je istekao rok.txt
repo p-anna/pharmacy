@@ -1,0 +1,19 @@
+Prijem preparata kojima je istekao rok
+
+1. Kratak opis: Proces prijema i bezbednog skladištenja preparata sa isteklim rokom.
+2. Akteri: Apotekar i pacijent
+3. Preduslovi: Apotekar je obučen za pravilno odlaganje preparata sa isteklim rokom, sistem je u ispravnom stanju.
+4. Postuslovi: Preparat sa isteklim rokom je pravilno odložen. 
+5. Osnovni tok:
+	1. Pacijent donosi preparat sa isteklim rokom apotekaru. 
+	2. Apotekar potvrđuje da je preparatu zaista istekao rok.
+	3. Apotekar utvrđuje da li doneti preparat sa isteklim rokom spada u infektivni otpad, citotoksični otpad ili u regularan otpad.
+	4. Na osnovu tipa leka, apotekar odlaže preparat u odgovarajuću specijalnu kesu za skladištenje otpada prema vrsti.
+	5. Apotekar ažurira stanje medicinskog otpada u sistemu.
+	6. Apotekar obaveštava pacijenta da je preparat sa isteklim rokom bezbedno odložen.
+6. Alternativni tok:
+	2. Preparatu nije istekao rok. Apotekar vraća preparat pacijentu i obaveštava ga da je preparat još uvek ispravan. Slučaj upotrebe se završava.
+	4. Nema odgovarajuće kese za skladištenje tog tipa otpada. Apotekar obaveštava nadležne da je neophodna nabavka istih. Apotekar odvaja preparat na posebno
+	mesto u magacinu. Slučaj upotrebe se završava. 
+7. Specijalni zahtevi: 
+	Postojanje standardizovanih tipova kesa za odlaganje adekvatnog otpada u apoteci. 
