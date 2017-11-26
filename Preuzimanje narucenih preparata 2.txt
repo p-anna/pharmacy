@@ -27,10 +27,12 @@ Preuzimanje naručenih preparata
 		3.1.4. Kurir uzima otpremnicu, ažurira status porudžbine, napušta apoteku i slučaj upotrebe se završava.
 	4.1. Pošiljka i narudžbenica se razlikuju po sadržaju.
 		4.1.1. Apotekar popunjava povratnicu i time obaveštava dobavljača o razlikama izmedju naručenih i dospelih proizvoda.
-		4.1.2. Apotekar šalje povratnicu zajedno sa nenaručenim proizvodima dobavljaču i slučaj upotrebe se nastavlja od koraka 9 glavnog toka.
+		4.1.2. Apotekar daje povratnicu zajedno sa nenaručenim proizvodima Kuriru i slučaj 
+upotrebe se nastavlja od koraka 6 glavnog toka.
 	5.1. Proizvodi su oštećeni i/ili im je rok trajanja neodgovarajuć.
 		5.1.1. Apotekar popunjava povratnicu i time obaveštava dobavljača o neispravnosti dospelih proizvoda.
-		5.1.2. Apotekar šalje povratnicu zajedno sa neispravnim proizvodima dobavljaču i slučaj upotrebe se nastavlja od koraka 10 glavnog toka.
+		5.1.2. Apotekar daje povratnicu zajedno sa neispravnim proizvodima Kuriru i slučaj 
+upotrebe se nastavlja od koraka 6 glavnog toka.
 7. Podtokovi
 8. Specijalni zahtevi
 9. Dodatne informacije
