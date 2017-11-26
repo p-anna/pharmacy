@@ -1,0 +1,36 @@
+Preuzimanje naručenih preparata
+
+1. Kratak opis:	Opis postupka preuzimanja naručenih lekova i preparata od trenutka dolaska kurira u apotekarsku ustanovu do trentutka kada je apotekar u obavezi da unese detalje o zaključenoj porudžbini u informacioni sistem.
+2. Učesnici:	Apotekar
+		Kurir
+3. Preduslov:	Apotekar i Kurir su upoznati sa procedurom primopredaje lekova i preparata, sistem je u ispravnom stanju.
+4. Postuslov:	Dospela pošiljka sa proizvodima je razrešena, sistem je ispravan i spreman za unošenje podataka.
+5. Osnovni tok:
+	1. Kurir priprema otpremnicu.
+	2. Apotekar priprema narudžbenicu.
+	3. Apotekar proverava da li je otpremnica potpisana i da li ima pečat.
+
+	4. Apotekar proverava da li se sadržaj pošiljke poklapa sa sadržajem narudžbenice.
+
+        5. Apotekar proverava ispravnost proizvoda
+	
+	6. Apotekar potpisuje otpremnicu.
+	7. Apotekar vraća otpremnicu kuriru.
+	8. Kurir uzima potpisanu otpremnicu. 
+	9. Kurir ažurira status porudžbine i napušta apoteku. 
+	10. Apotekar priprema ažuriranje i/ili unošenje podataka u sistem, slučaj upotrebe se završava i tok se nastavlja od slučaja upotrebe "Unošenje lekova".
+6. Alternativni tokovi:
+	3.1. Otpremnici nedostaje potpis i/ili pečat. 
+		3.1.1. Apotekar odbija da prihvati dospelu pošiljku.
+		3.1.2. Apotekar obaveštava dobavljača o nepuponjenoj otpremnici.
+		3.1.3. Apotekar vraća otpremnicu kuriru.
+		3.1.4. Kurir uzima otpremnicu, ažurira status porudžbine, napušta apoteku i slučaj upotrebe se završava.
+	4.1. Pošiljka i narudžbenica se razlikuju po sadržaju.
+		4.1.1. Apotekar popunjava povratnicu i time obaveštava dobavljača o razlikama izmedju naručenih i dospelih proizvoda.
+		4.1.2. Apotekar šalje povratnicu zajedno sa nenaručenim proizvodima dobavljaču i slučaj upotrebe se nastavlja od koraka 9 glavnog toka.
+	5.1. Proizvodi su oštećeni i/ili im je rok trajanja neodgovarajuć.
+		5.1.1. Apotekar popunjava povratnicu i time obaveštava dobavljača o neispravnosti dospelih proizvoda.
+		5.1.2. Apotekar šalje povratnicu zajedno sa neispravnim proizvodima dobavljaču i slučaj upotrebe se nastavlja od koraka 10 glavnog toka.
+7. Podtokovi
+8. Specijalni zahtevi
+9. Dodatne informacije

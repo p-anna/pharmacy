@@ -1,12 +1,12 @@
 Preuzimanje naručenih preparata
 
-1. Kratak opis:	Opis postupka preuzimanja naručenih lekova i preparata
+1. Kratak opis:	Opis postupka preuzimanja naručenih lekova i preparata od trenutka dolaska kurira u apotekarsku ustanovu do trenutka kada je apotekar u obavezi da unese detalje o zaključenoj porudžbini u informacioni sistem.
 2. Učesnici:	Kurir
 		Apotekar
 3. Preduslov:	Apotekar i Kurir su upoznati sa procedurom primopredaje lekova i preparata, sistem je u ispravnom stanju.
 4. Postuslov:	Dospela pošiljka sa proizvodima je razrešena, sistem je ispravan i spreman za unošenje podataka.
 5. Osnovni tok:
-	1. Kurir prirprema otpremnicu.
+	1. Kurir priprema otpremnicu.
 	2. Apotekar priprema narudžbenicu.
 	3. Apotekar proverava da li je otpremnica potpisana i da li ima pečat.
 
