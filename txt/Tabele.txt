@@ -1,0 +1,122 @@
+PREPARAT
+	1. šifra - apoteka sama slisli kako ce da sifruje robu, jedinstvena
+	2. naziv - koji u sebi sadrzi skoro uvek i jacinu i kolicinu (npr andol 200mg 30 tableta -  ili andol 30x200)
+	3. barkod - proiyvodjac da, isto za sve apoteke
+	4. cena
+	5. informacije o leku (iste informacije za razlicite sifre ako se radi o istom leku)
+	6. rok trajanja
+	7. jkl - broj koji oznacava da li moze na recept i pod kojim uslovima
+	8. participacija ili popust
+	9. proizvodjac
+
+
+SIROVINA
+	1. sifra sirovine
+	2. sifra dobavljaca
+	3. naziv
+	4. dodatne informacije
+	5. specijalni uslovi
+
+
+RADNIK
+	1. ime i prezime
+	2. jmbg
+	3. sifra radnika
+	4. status radnika (da li je apotekar, upravnik (ili mozda oba)...)
+	5. pocetak radnog odnosa
+	6. smena (1. 2. ...)
+
+
+DOBAVLJAC
+	1. ime dobavljaca
+	2. internet stranica dobavljaca
+	3. sifra dobavljaca
+	4. broj telefona
+
+
+STANJE MAGACINA (ZA PREPARATE)
+	1. sifra preparata
+	2. ime
+	3. rok trajanja
+	4. kolicina
+	5. datum kad je stigla
+	6. dobavljac
+	7. dodatne informacije
+	8. specijalni uslovi
+
+
+
+STANJE LABORATORIJSKOG MAGACINA (ZA SIROVINE)
+	1. sifra sirovine
+	2. ime sirovine
+	3. rok trajanja
+	4. kolicina
+	5. datum kad je stigla
+	6. dobavljac
+	7. dodatne informacije
+	8. specijalni uslovi (npr. da li mora da se cuva u frizideru ili tako nesto)
+
+
+PRODATI PREPARATI
+	1. kad je prodat
+	2. sifra preparata
+	3. kolicina
+	4. dobavljac
+
+
+RECEPT ZA PROIZVODNJU
+	1. sifra preparata koi se pravi
+	2. jedinica kolicine (100 grama recimo, ili 10 za manje...)
+	3. koliko jedinica kolicine
+	4. lista potrebnih sirovina za jednu jedinicu kolicine, sa kolicinama tih sirovina
+	5. cena jedne jedinice kolicine
+	6. potrebna ambalaza
+
+
+NARUCENI PREPARATI (ONI KOJI SE PRAVE U APOTECI)
+	1. sifra preparata
+	2. datum porucivanja
+	3. datum predvidjenog preuzimanja
+	4. jmbg narucioca
+	5. ime narucioca
+	6. broj telefona
+	7. kolicina
+	8. specijalni zahtevi pacijenta (ako ih ima)
+
+
+NARUDZBENICA
+	1. sifra preparata
+	2. ime
+	3. kolicina koja se narucuje
+	4. dobavljac (moze da bude null)
+	5. cena (do sad, ako postoji dobavljac)
+
+
+OTPREMNICA
+	1. kad je stigao
+	2. od kog dobavljaca
+	3. kolicina
+	4. rok trajanja
+	5. sifra preparata
+
+
+RACUN
+	1. sifra racuna
+	2. iznos
+	3. datum izdavanja
+	4. uslovi placanja
+	5. sifra radnika
+
+------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------REDUNDANTNO--------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------
+
+Tabela prodatih preparata po radniku
+1. sifra radnika
+2.  sifra leka
+3. kolicina leka
+4. datum kad je sve to prodato
+
+Tabela optimalnih kolicina za prodaju
+1. sifra leka
+2. predvidjena kolicina za mesec dana
