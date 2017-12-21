@@ -113,10 +113,23 @@ RACUN
 
 Tabela prodatih preparata po radniku
 1. sifra radnika
-2.  sifra leka
+2. sifra leka
 3. kolicina leka
 4. datum kad je sve to prodato
 
 Tabela optimalnih kolicina za prodaju
 1. sifra leka
 2. predvidjena kolicina za mesec dana
+
+
+Izmene
++ dodatna tabela pacijent (nije korisnik) ima u useCase unos novog korisnika
+- izbaci tabela recept i sastojak
+dodati lozinku za korisnika
+
+Pretraga lekova
+
+
+Distribuirana kopija dela baze
+
+
