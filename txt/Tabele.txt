@@ -126,6 +126,7 @@ Izmene
 + dodatna tabela pacijent (nije korisnik) ima u useCase unos novog korisnika
 - izbaci tabela recept i sastojak
 dodati lozinku za korisnika
+dodati cenu u tabelu proizvod
 
 Pretraga lekova
 
