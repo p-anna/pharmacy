@@ -1,34 +1,60 @@
-USE mydb;
+use mydb;
 
-DELIMITER $
+delimiter $
 
-DROP TRIGGER IF EXISTS PRODAJA$
+drop trigger if exists prodaja$
 
-CREATE TRIGGER PRODAJA
-AFTER INSERT ON KUPOVNIA
-FOR EACH ROW
---DEFINISANJE POMOCNE PROMENLJIVE KOJA JE INICJIJALNO JEDNAKA NEW.KOLICINA
-BEGIN
-	IF (new.kolicina > ( 	SELECT sum(M0.kolicina) 
-				FROM MAGACIN M0 
-				WHERE M0.id_proizvoda = new.id_proizvoda
-					AND M0.rok_trajanja > current_date
-			) THEN 
-		SIGNAL sqlstate='45000' SET message_text='NEMA DOVOLJNO TRAZENOG PROIZVODA';
-	ELSE 
---FOR PETLJA U KOJOJ SE KOLICINE PROIZVODA SMANJUJU DOK SE NE DOSTIGNE VREDNOST POMOCNE PROMENLJIVE
---		UPDATE MAGACIN M1 SET M1.kolicina = M1.kolicina-new.kolicina 
---		WHERE M1.id_proizvoda = new.id_proizvoda AND M1.rok_trajanja 
-	END IF;
-END$
+create trigger prodaja
+after insert on KUPOVINA
+for each row
+begin
+	declare k int;
+	set k = new.kolicina;
+	if (new.kolicina > ( 	select sum(M0.kolicina)
+				from MAGACIN M0
+				where M0.id_proizvoda = new.id_proizvoda
+					and M0.rok_upotrebe > current_date) 
+	) then
+		signal sqlstate '45000' set message_text='Nema dovoljno trazenog proizvoda';
+	else
+		while k > 0 do
+		begin
+			declare l int;
+			declare u date;
+			declare n date;
+			set l = (	select min(M1.kolicina) 
+					from MAGACIN M1 
+					where M1.id_proizvoda=new.id_proizvoda 
+						and not exists (select * from MAGACIN M2 
+								where M2.id_proizvoda=M1.id_proizvoda 
+									and (	M2.rok_upotrebe < M1.rok_upotrebe or
+										M2.datum_nabavke < M1.datum_nabavke))
+				);
+			set u = (
+					select min(M1.rok_upotrebe) 
+					from MAGACIN M1 
+					where M1.id_proizvoda=new.id_proizvoda
+						and M1.rok_upotrebe > current_date
+				);
+			set n = (
+					select min(M1.datum_nabavke) 
+					from MAGACIN M1 
+					where M1.id_proizvoda=new.id_proizvoda
+						and M1.rok_upotrebe = u
+				);
+			if k >= l then
+				delete from MAGACIN
+				where id_proizvoda=new.id_proizvoda
+					and rok_upotrebe=u and datum_nabavke=n;
+			else
+				update MAGACIN SET kolicina = kolicina-k
+				where id_proizvoda=new.id_proizvoda
+					and rok_upotrebe=u and datum_nabavke=n;
+			end if;
+			set k = k-l;
+		end;
+		end while;
 
+	end if;
+end$
 
-DROP TRIGGER IF EXISTS UPDATE_MAGACIN$
-
-CREATE TRIGGER UPDATE_MAGACIN
-AFTER UPDATE ON MAGACIN
-FOR EACH ROW
-BEGIN
-	IF(new.kolicina = 0) THEN DELETE
-	END IF;
-END$
