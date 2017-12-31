@@ -1,0 +1,8 @@
+1. Vratiti organizaciju slika i teksta!!!
+2. Ubaciti novi tekst za opis baze i arhitekturu u glavni dokument!!!
+3. Ubaciti slike novih dijagrama stanja!!! Ubaciti novi dijagram za kupoprodaju!!!
+4. Popraviti nekonzistentnosti!!
+4.1. Preparat, lek, sirovina
+4.2. Slucajevi upotrebe za narucivanje, popis i slicno!!!
+5. Popraviti slovne greske!!!
+6. Formatirati dokument!!!
