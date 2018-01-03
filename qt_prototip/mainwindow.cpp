@@ -1,13 +1,15 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "connection.h"
 #include <iostream>
 #include <fstream>
+#include <math.h>
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlQuery>
 #include <QTableWidget>
 #include <QWidgetItem>
-#include "connection.h"
-#include <math.h>
+
+Connection c;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -26,69 +28,20 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->buttonExit,SIGNAL(clicked()),
             this, SLOT(buttonExit_clicked()));
 
-    Connection c = Connection("QMYSQL", "localhost", "mydb", "root", "");
+    c = Connection("QMYSQL", "localhost", "mydb", "root", "");
     c.setQuerry("./select.sql");
     c.execSelectQuerry();
     c.printTable();
 
-    std::vector<std::vector<std::string> > tab = c.table();
-    ui->tableWidget->clear();
-    ui->tableWidget->setRowCount(tab.size()+1);
-    ui->tableWidget->setColumnCount(4);
-
-    ui->tableWidget->setStyleSheet("color: rgb(0,0,0);");
-    for(auto i=0; i<ui->tableWidget->rowCount(); i++)
-        for(auto j=0; j<4; j++)
-        {
-            if(i != ui->tableWidget->rowCount()-1)
-                ui->tableWidget->setItem(i, j, new QTableWidgetItem(tab[i][j].c_str()));
-            else
-                ui->tableWidget->setItem(i, j, new QTableWidgetItem(""));
-            ui->tableWidget->item(i, j)->setFlags(Qt::ItemIsDragEnabled | Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-        }
-
-    ui->tableWidget->horizontalHeader()->setFont(QFont("Cantarell", 10, 100, false));
-    ui->tableWidget->horizontalHeader()->setStyleSheet("color: rgb(92,7,134);");
-    QPalette palette = ui->tableWidget->horizontalHeader()->palette();
-    QFont font = ui->tableWidget->horizontalHeader()->font();
-    //palette.setColor();
-    ui->tableWidget->setHorizontalHeaderItem(0, new QTableWidgetItem("PROIZVOD"));
-    ui->tableWidget->setHorizontalHeaderItem(1, new QTableWidgetItem("DOBAVLJAC"));
-    ui->tableWidget->setHorizontalHeaderItem(2, new QTableWidgetItem("CENA"));
-    ui->tableWidget->setHorizontalHeaderItem(3, new QTableWidgetItem("KOLICINA"));
-
-//---------------------------------------------------------------------------------------------------------------------
-
-    ui->tableWidget_2->clear();
-    ui->tableWidget_2->setRowCount(1);
-    ui->tableWidget_2->setColumnCount(4);
-    ui->tableWidget_2->setPalette(palette);
-    ui->tableWidget_2->setFrameShape(ui->tableWidget->frameShape());
-    ui->tableWidget_2->setFrameShadow(ui->tableWidget->frameShadow());
-    ui->tableWidget_2->horizontalHeader()->setFont(font);
-
-    int width = ui->tableWidget_2->width();
-    int height = ui->tableWidget_2->height();
-
-    for(auto j=0; j<4; j++)
-    {
-        ui->tableWidget_2->setItem(0, j, new QTableWidgetItem(""));
-        ui->tableWidget_2->item(0, j)->setFlags(Qt::ItemIsDragEnabled | Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-    }
-    ui->tableWidget_2->setHorizontalHeaderItem(0, new QTableWidgetItem("PROIZVOD"));
-    ui->tableWidget_2->setHorizontalHeaderItem(1, new QTableWidgetItem("DOBAVLJAC"));
-    ui->tableWidget_2->setHorizontalHeaderItem(2, new QTableWidgetItem("KOLICINA"));
-    ui->tableWidget_2->setHorizontalHeaderItem(3, new QTableWidgetItem("IZNOS"));
-    ui->tableWidget_2->setColumnWidth(0, std::floor(width/4));
-    ui->tableWidget_2->setColumnWidth(1, std::floor(width/4));
-    ui->tableWidget_2->setColumnWidth(2, std::floor(width/4));
-    ui->tableWidget_2->setColumnWidth(3, std::floor(width/4)-1);
-    ui->tableWidget_2->setRowHeight(0, height);
+    refreshDataBaseTable();
 
     ui->tableWidget_2->setAlternatingRowColors(true);
     ui->tableWidget_2->verticalHeader()->setHidden(true);
     ui->tableWidget_2->setShowGrid(true);
     ui->tableWidget_2->setSortingEnabled(true);
+
+    refreshPurchaseTable();
+
     //ui->tableWidget_2->sortItems();
     //ui->tableWidget_2->cellDoubleClicked();
     //ui->tableWidget_2->itemDoubleClicked();
@@ -123,4 +76,77 @@ void MainWindow::buttonHelp_clicked()
 void MainWindow::buttonExit_clicked()
 {
     ui->tabWidget->setCurrentIndex(4);
+}
+
+void MainWindow::on_tableWidget_cellDoubleClicked(int row, int column)
+{
+    std::vector<std::string> r = c.tableRow(row);
+    if(r[3] != std::to_string(0))
+    {
+        c.addPurchaseRow({r[0], r[1], r[3], std::to_string(std::stod(r[2])*std::stod(r[3]))});
+        refreshPurchaseTable();
+    }
+}
+
+void MainWindow::refreshDataBaseTable()
+{
+    std::vector<std::vector<std::string> > tab = c.table();
+    ui->tableWidget->clear();
+    ui->tableWidget->setRowCount(tab.size()+1);
+    ui->tableWidget->setColumnCount(4);
+
+    ui->tableWidget->setStyleSheet("color: rgb(0,0,0);");
+    for(auto i=0; i<ui->tableWidget->rowCount(); i++)
+        for(auto j=0; j<4; j++)
+        {
+            if(i != ui->tableWidget->rowCount()-1)
+                ui->tableWidget->setItem(i, j, new QTableWidgetItem(tab[i][j].c_str()));
+            else
+                ui->tableWidget->setItem(i, j, new QTableWidgetItem(""));
+            ui->tableWidget->item(i, j)->setFlags(Qt::ItemIsDragEnabled | Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+        }
+
+    ui->tableWidget->horizontalHeader()->setFont(QFont("Cantarell", 10, 100, false));
+    ui->tableWidget->horizontalHeader()->setStyleSheet("color: rgb(92,7,134);");
+    ui->tableWidget->setHorizontalHeaderItem(0, new QTableWidgetItem("PROIZVOD"));
+    ui->tableWidget->setHorizontalHeaderItem(1, new QTableWidgetItem("DOBAVLJAC"));
+    ui->tableWidget->setHorizontalHeaderItem(2, new QTableWidgetItem("CENA"));
+    ui->tableWidget->setHorizontalHeaderItem(3, new QTableWidgetItem("KOLICINA"));
+}
+
+void MainWindow::refreshPurchaseTable()
+{
+
+    std::vector<std::vector<std::string> > purchase = c.purchase();
+
+    QPalette palette = ui->tableWidget_2->palette();
+    QFont hfont = ui->tableWidget->horizontalHeader()->font();
+    QFont tfont = ui->tableWidget->font();
+
+    int width = ui->tableWidget_2->width();
+
+    ui->tableWidget_2->clear();
+    ui->tableWidget_2->setRowCount(purchase.size());
+    ui->tableWidget_2->setColumnCount(4);
+    ui->tableWidget_2->setPalette(palette);
+    ui->tableWidget_2->setFrameShape(ui->tableWidget->frameShape());
+    ui->tableWidget_2->setFrameShadow(ui->tableWidget->frameShadow());
+    ui->tableWidget_2->horizontalHeader()->setFont(hfont);
+
+    ui->tableWidget_2->setHorizontalHeaderItem(0, new QTableWidgetItem("PROIZVOD"));
+    ui->tableWidget_2->setHorizontalHeaderItem(1, new QTableWidgetItem("DOBAVLJAC"));
+    ui->tableWidget_2->setHorizontalHeaderItem(2, new QTableWidgetItem("KOLICINA"));
+    ui->tableWidget_2->setHorizontalHeaderItem(3, new QTableWidgetItem("IZNOS"));
+    ui->tableWidget_2->setColumnWidth(0, std::floor(width/4));
+    ui->tableWidget_2->setColumnWidth(1, std::floor(width/4));
+    ui->tableWidget_2->setColumnWidth(2, std::floor(width/4));
+    ui->tableWidget_2->setColumnWidth(3, std::floor(width/4)-1);
+
+    //ui->tableWidget_2->setStyleSheet("color: rgb(0, 0, 0);");
+    for(unsigned i=0; i<purchase.size(); i++)
+        for(unsigned j=0; j<4; j++)
+        {
+            ui->tableWidget_2->setItem(i, j, new QTableWidgetItem(purchase[i][j].c_str()));
+            ui->tableWidget_2->item(i, j)->setFlags(Qt::ItemIsDragEnabled | Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+        }
 }

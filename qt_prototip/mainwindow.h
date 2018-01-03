@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTableWidgetItem>
 
 namespace Ui {
 class MainWindow;
@@ -22,8 +23,12 @@ private slots:
     void buttonHelp_clicked();
     void buttonExit_clicked();
 
+    void on_tableWidget_cellDoubleClicked(int row, int column);
 
 private:
+    void refreshDataBaseTable();
+    void refreshPurchaseTable();
+
     Ui::MainWindow *ui;
 };
 

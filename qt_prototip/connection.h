@@ -7,10 +7,15 @@
 class Connection
 {
 public:
+    Connection();
     Connection(std::string driver, QString host, QString dbName, QString user, QString pass);
+
     void setQuerry(std::string path);
-    void addRow(std::vector<std::string> row);
+    void addTableRow(std::vector<std::string> row);
+    std::vector<std::string> tableRow(int i) const;
+    void addPurchaseRow(std::vector<std::string> row);
     std::vector<std::vector<std::string> > table() const;
+    std::vector<std::vector<std::string> > purchase() const;
     void printTable() const;
 
     void execSelectQuerry();
@@ -21,6 +26,7 @@ private:
     QSqlDatabase _db;
     QSqlQuery _querry;
     std::vector<std::vector<std::string> > _table;
+    std::vector<std::vector<std::string> > _purchase;
 };
 
 #endif // CONNECTION_H

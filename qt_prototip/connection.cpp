@@ -4,6 +4,8 @@
 #include <QVariant>
 #include <QSqlDriver>
 
+Connection::Connection(){}
+
 Connection::Connection(std::string driver, QString host, QString dbName, QString user, QString pass = "")
 {
     _db = QSqlDatabase::addDatabase(driver.c_str());
@@ -27,9 +29,19 @@ void Connection::setQuerry(std::string path)
     _querry = QSqlQuery(l.c_str());
 }
 
-void Connection::addRow(std::vector<std::string> row)
+void Connection::addTableRow(std::vector<std::string> row)
 {
     _table.push_back(row);
+}
+
+std::vector<std::string> Connection::tableRow(int i) const
+{
+    return _table[i];
+}
+
+void Connection::addPurchaseRow(std::vector<std::string> row)
+{
+    _purchase.push_back(row);
 }
 
 void Connection::printTable() const
@@ -52,7 +64,7 @@ void Connection::execSelectQuerry()
         {
             row.push_back(_querry.value(i).toString().toStdString());
         }
-        addRow(row);
+        addTableRow(row);
     }
 }
 
@@ -64,5 +76,10 @@ void Connection::execQuerry()
 std::vector<std::vector<std::string> > Connection::table() const
 {
     return _table;
+}
+
+std::vector<std::vector<std::string> > Connection::purchase() const
+{
+    return _purchase;
 }
 
