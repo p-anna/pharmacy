@@ -1,0 +1,1 @@
+select P.id_proizvoda, P.naziv, coalesce(D.naziv, "-") as naziv, PR.cena, sum(coalesce(M.kolicina, 0)) as kolicina from PROIZVOD P join PREPARAT PR on PR.id_proizvoda=P.id_proizvoda left outer join DOBAVLJAC D on D.id_dobavljaca = P.id_dobavljaca left outer join MAGACIN M on M.id_proizvoda=P.id_proizvoda group by P.id_proizvoda, P.naziv, P.id_dobavljaca;
