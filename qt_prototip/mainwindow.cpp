@@ -41,6 +41,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tableWidget_2->setSortingEnabled(true);
 
     ui->lineEdit_7->setText("0.00");
+    ui->lineEdit_7->setEnabled(false);
 
     refreshPurchaseTable();
 
@@ -80,17 +81,19 @@ void MainWindow::buttonExit_clicked()
     ui->tabWidget->setCurrentIndex(4);
 }
 
+
+
 void MainWindow::on_tableWidget_cellDoubleClicked(int row, int column)
 {
     std::vector<std::string> r = c.tableRow(row);
-    if(r[3] != std::to_string(0))
+    if(r[4] != std::to_string(0))
     {
         int n = QInputDialog::getInt(this, "Unesite kolicinu", "Kolicina");
-        if(n>0 && n<=std::stoi(r[3]))
+        if(n>0 && n+c.purchaseAmmount(r[0])<=std::stoi(r[4]))
         {
-            c.addPurchaseRow({r[0], r[1], std::to_string(n), std::to_string(std::stod(r[2])*n)});
+            c.addPurchase({r[0], r[1], r[2], std::to_string(n), std::to_string(std::stod(r[3])*n)});
             refreshPurchaseTable();
-            ui->lineEdit_7->setText(std::to_string(std::stod(ui->lineEdit_7->text().toStdString())+std::stod(r[2])*n).c_str());
+            ui->lineEdit_7->setText(std::to_string(std::stod(ui->lineEdit_7->text().toStdString())+std::stod(r[3])*n).c_str());
         }
     }
 }
@@ -98,7 +101,7 @@ void MainWindow::on_tableWidget_cellDoubleClicked(int row, int column)
 void MainWindow::on_tableWidget_2_cellDoubleClicked(int row, int column)
 {
     std::vector<std::string> r = c.purchaseRow(row);
-    ui->lineEdit_7->setText(std::to_string(std::stod(ui->lineEdit_7->text().toStdString())-std::stod(r[3])).c_str());
+    ui->lineEdit_7->setText(std::to_string(std::stod(ui->lineEdit_7->text().toStdString())-std::stod(r[4])).c_str());
     c.deletePurchaseRow(row);
     refreshPurchaseTable();
 }
@@ -115,7 +118,7 @@ void MainWindow::refreshDataBaseTable()
         for(auto j=0; j<4; j++)
         {
             if(i != ui->tableWidget->rowCount()-1)
-                ui->tableWidget->setItem(i, j, new QTableWidgetItem(tab[i][j].c_str()));
+                ui->tableWidget->setItem(i, j, new QTableWidgetItem(tab[i][j+1].c_str()));
             else
                 ui->tableWidget->setItem(i, j, new QTableWidgetItem(""));
             ui->tableWidget->item(i, j)->setFlags(Qt::ItemIsDragEnabled | Qt::ItemIsSelectable | Qt::ItemIsEnabled);
@@ -160,7 +163,62 @@ void MainWindow::refreshPurchaseTable()
     for(unsigned i=0; i<purchase.size(); i++)
         for(unsigned j=0; j<4; j++)
         {
-            ui->tableWidget_2->setItem(i, j, new QTableWidgetItem(purchase[i][j].c_str()));
+            ui->tableWidget_2->setItem(i, j, new QTableWidgetItem(purchase[i][j+1].c_str()));
             ui->tableWidget_2->item(i, j)->setFlags(Qt::ItemIsDragEnabled | Qt::ItemIsSelectable | Qt::ItemIsEnabled);
         }
+}
+
+void MainWindow::on_lineEdit_3_textChanged(const QString &arg1)
+{
+    if(arg1 != "")
+    {
+        QString s = "select P.id_proizvoda, P.naziv, coalesce(D.naziv, \"-\") as naziv, PR.cena, sum(coalesce(M.kolicina, 0)) as kolicina ";
+        s.append("from PROIZVOD P join PREPARAT PR on PR.id_proizvoda=P.id_proizvoda left outer join DOBAVLJAC D on D.id_dobavljaca = P.id_dobavljaca left outer join MAGACIN M on M.id_proizvoda=P.id_proizvoda ");
+        s.append("where P.naziv like \"%" + arg1 + "%\" or D.naziv like \"%" + arg1 + "%\" ");
+        s.append("group by P.id_proizvoda, P.naziv, P.id_dobavljaca;");
+
+        QSqlQuery q = QSqlQuery(s);
+        c.setQuerry(q);
+    }
+    else
+        c.setQuerry("../PharmacyGUI/select.sql");
+
+    c.execSelectQuerry();
+    refreshDataBaseTable();
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    if(c.purchase().size() != 0)
+    {
+        QSqlQuery q1;
+        QSqlQuery q2;
+
+        q1.prepare("insert into RACUN values (0, 2, ?, current_date, \"kes\")");
+        q1.bindValue(0, ui->lineEdit_7->text());
+        c.setQuerry(q1);
+        c.execQuerry();
+
+
+        std::vector<std::vector<std::string> > pur = c.purchase();
+        for(unsigned i=0; i<pur.size(); i++)
+        {
+            q2.clear();
+            q2.prepare("insert into KUPOVINA values (0, ?, NULL, ?, NULL)");
+            q2.bindValue(0, pur[i][0].c_str());
+            q2.bindValue(1, pur[i][3].c_str());
+
+            c.setQuerry(q2);
+            c.execQuerry();
+        }
+
+        c.clearPurchase();
+        refreshPurchaseTable();
+        ui->lineEdit_7->setText("0.00");
+
+
+        c.setQuerry("../PharmacyGUI/select.sql");
+        c.execQuerry();
+        refreshDataBaseTable();
+    }
 }

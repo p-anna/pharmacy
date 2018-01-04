@@ -26,6 +26,10 @@ private slots:
     void on_tableWidget_cellDoubleClicked(int row, int column);
     void on_tableWidget_2_cellDoubleClicked(int row, int column);
 
+    void on_lineEdit_3_textChanged(const QString &arg1);
+
+    void on_pushButton_clicked();
+
 private:
     void refreshDataBaseTable();
     void refreshPurchaseTable();
