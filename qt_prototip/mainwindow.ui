@@ -122,7 +122,7 @@
         </property>
         <property name="icon">
          <iconset theme="kucica">
-          <normaloff>../../pharmacy/ui/kucica.png</normaloff>../../pharmacy/ui/kucica.png</iconset>
+          <normaloff>../../pharmacy/qt_prototip/kucica.png</normaloff>../../pharmacy/qt_prototip/kucica.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -181,22 +181,6 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="buttonReceipts">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="text">
-         <string>Recepti</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QPushButton" name="buttonBuySell">
         <property name="enabled">
          <bool>true</bool>
@@ -209,6 +193,22 @@
         </property>
         <property name="text">
          <string>Kasa</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="buttonReceipts">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Narucivanje</string>
         </property>
        </widget>
       </item>
@@ -304,7 +304,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>receipt</string>
+       <string>Narucivanje</string>
       </property>
      </widget>
     </widget>
@@ -413,9 +413,9 @@
       <widget class="QLineEdit" name="lineEdit_7">
        <property name="geometry">
         <rect>
-         <x>70</x>
+         <x>40</x>
          <y>134</y>
-         <width>161</width>
+         <width>221</width>
          <height>51</height>
         </rect>
        </property>
@@ -500,7 +500,7 @@
        <rect>
         <x>0</x>
         <y>10</y>
-        <width>1051</width>
+        <width>1041</width>
         <height>281</height>
        </rect>
       </property>
@@ -993,14 +993,14 @@
      <widget class="QLineEdit" name="lineEdit_4">
       <property name="geometry">
        <rect>
-        <x>210</x>
+        <x>240</x>
         <y>200</y>
         <width>113</width>
         <height>25</height>
        </rect>
       </property>
       <property name="text">
-       <string>help</string>
+       <string>Help</string>
       </property>
      </widget>
     </widget>
@@ -1018,7 +1018,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>login</string>
+       <string>Login</string>
       </property>
      </widget>
     </widget>
@@ -1036,7 +1036,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>exit</string>
+       <string>Exit</string>
       </property>
      </widget>
     </widget>

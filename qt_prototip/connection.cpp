@@ -44,6 +44,17 @@ void Connection::addPurchaseRow(std::vector<std::string> row)
     _purchase.push_back(row);
 }
 
+std::vector<std::string> Connection::purchaseRow(int row) const
+{
+    return _purchase[row];
+}
+
+void Connection::deletePurchaseRow(int row)
+{
+    _purchase[row] = _purchase.back();
+    _purchase.pop_back();
+}
+
 void Connection::printTable() const
 {
     for(unsigned i=0; i<_table.size(); i++)

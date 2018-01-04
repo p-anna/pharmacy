@@ -13,10 +13,13 @@ public:
     void setQuerry(std::string path);
     void addTableRow(std::vector<std::string> row);
     std::vector<std::string> tableRow(int i) const;
-    void addPurchaseRow(std::vector<std::string> row);
     std::vector<std::vector<std::string> > table() const;
-    std::vector<std::vector<std::string> > purchase() const;
     void printTable() const;
+
+    void addPurchaseRow(std::vector<std::string> row);
+    std::vector<std::string> purchaseRow(int row) const;
+    void deletePurchaseRow(int row);
+    std::vector<std::vector<std::string> > purchase() const;
 
     void execSelectQuerry();
     void execQuerry();

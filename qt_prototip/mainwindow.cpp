@@ -8,12 +8,12 @@
 #include <QtSql/QSqlQuery>
 #include <QTableWidget>
 #include <QWidgetItem>
+#include <QInputDialog>
 
 Connection c;
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
             this, SLOT(buttonExit_clicked()));
 
     c = Connection("QMYSQL", "localhost", "mydb", "root", "");
-    c.setQuerry("./select.sql");
+    c.setQuerry("../PharmacyGUI/select.sql");
     c.execSelectQuerry();
     c.printTable();
 
@@ -39,6 +39,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tableWidget_2->verticalHeader()->setHidden(true);
     ui->tableWidget_2->setShowGrid(true);
     ui->tableWidget_2->setSortingEnabled(true);
+
+    ui->lineEdit_7->setText("0.00");
 
     refreshPurchaseTable();
 
@@ -83,9 +85,22 @@ void MainWindow::on_tableWidget_cellDoubleClicked(int row, int column)
     std::vector<std::string> r = c.tableRow(row);
     if(r[3] != std::to_string(0))
     {
-        c.addPurchaseRow({r[0], r[1], r[3], std::to_string(std::stod(r[2])*std::stod(r[3]))});
-        refreshPurchaseTable();
+        int n = QInputDialog::getInt(this, "Unesite kolicinu", "Kolicina");
+        if(n>0 && n<=std::stoi(r[3]))
+        {
+            c.addPurchaseRow({r[0], r[1], std::to_string(n), std::to_string(std::stod(r[2])*n)});
+            refreshPurchaseTable();
+            ui->lineEdit_7->setText(std::to_string(std::stod(ui->lineEdit_7->text().toStdString())+std::stod(r[2])*n).c_str());
+        }
     }
+}
+
+void MainWindow::on_tableWidget_2_cellDoubleClicked(int row, int column)
+{
+    std::vector<std::string> r = c.purchaseRow(row);
+    ui->lineEdit_7->setText(std::to_string(std::stod(ui->lineEdit_7->text().toStdString())-std::stod(r[3])).c_str());
+    c.deletePurchaseRow(row);
+    refreshPurchaseTable();
 }
 
 void MainWindow::refreshDataBaseTable()
@@ -116,7 +131,6 @@ void MainWindow::refreshDataBaseTable()
 
 void MainWindow::refreshPurchaseTable()
 {
-
     std::vector<std::vector<std::string> > purchase = c.purchase();
 
     QPalette palette = ui->tableWidget_2->palette();

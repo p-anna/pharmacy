@@ -24,12 +24,45 @@ private slots:
     void buttonExit_clicked();
 
     void on_tableWidget_cellDoubleClicked(int row, int column);
+    void on_tableWidget_2_cellDoubleClicked(int row, int column);
 
 private:
     void refreshDataBaseTable();
     void refreshPurchaseTable();
 
     Ui::MainWindow *ui;
+    QMainWindow *_w;
 };
 
 #endif // MAINWINDOW_H
+/*
+QWidget *cWidget;
+QFrame *cFrame;
+QWidget *lWidget;
+QVBoxLayout *vLayout;
+QSpinBox *sBox;
+QPushButton *pButton;
+
+cWidget = new QWidget(_w);
+cWidget->setObjectName("cWidget");
+cFrame = new QFrame(cWidget);
+cFrame->setObjectName("cFrame");
+cFrame->setGeometry(0, 0, 295, 245);
+
+lWidget = new QWidget(cFrame);
+lWidget->setObjectName("lWidget");
+lWidget->setGeometry(0, 0, 290, 240);
+vLayout = new QVBoxLayout(lWidget);
+vLayout->setObjectName("vLayout");
+vLayout->setSpacing(1);
+
+sBox = new QSpinBox(lWidget);
+sBox->setObjectName("sBox");
+vLayout->addWidget(sBox);
+
+pButton = new QPushButton(lWidget);
+pButton->setObjectName("pButton");
+vLayout->addWidget(pButton);
+
+cWidget->show();
+*/
