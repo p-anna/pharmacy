@@ -1,9 +1,3 @@
---SKRIPT KOJI SE KORISTI ZA INICIJALIZACIJU TABELA BAZE PODATAKA.
-
---BICE POTREBAN JEDAN SELECT UPIT KOJI IZDVAJA PODATKE O PROIZVODIMA KOJI CIJI NAZIV UNOSI KORISNIK, NJEGA TREBA
---DEFINISATI U OKVIRU C++ PROGRAMA.
------------------------------------------------------------------------------------------------------------------
-
 use mydb;
 
 drop trigger if exists prodaja;
