@@ -19,6 +19,10 @@ Connection::Connection(std::string driver, QString host, QString dbName, QString
         std::cout << "Connection Failed!" << std::endl;
         std::exit(-1);
     }
+
+    setQuerry("../PharmacyGUI/select.sql");
+    execSelectQuerry();
+    printTable();
 }
 
 

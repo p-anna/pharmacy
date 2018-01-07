@@ -23,6 +23,7 @@ private slots:
 
 
 private:
+    void resizeEvent(QResizeEvent *event);
     void refreshDatabaseTable();
     void refreshPurchaseTable();
     Ui::MainWindow *ui;

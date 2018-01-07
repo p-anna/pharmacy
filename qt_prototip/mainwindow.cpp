@@ -3,10 +3,12 @@
 #include "connection.h"
 #include <iostream>
 #include <math.h>
+#include <sstream>
+#include <iomanip>
 #include <QInputDialog>
 #include <QTableWidget>
 
-Connection c;
+Connection c("QMYSQL", "localhost", "mydb", "root", "");
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -22,33 +24,48 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->lineEditSearch, SIGNAL(textChanged(QString)),
             this, SLOT(lineEditSearch_textChanged(QString)));
 
+    QPalette palette;
+    QFont hfont;
+    QFont tfont;
+
     ui->tableWidgetDatabase->setAlternatingRowColors(true);
     ui->tableWidgetDatabase->verticalHeader()->setHidden(true);
     ui->tableWidgetDatabase->setShowGrid(true);
     ui->tableWidgetDatabase->setSortingEnabled(true);
+    ui->tableWidgetDatabase->setSelectionBehavior(QAbstractItemView::SelectRows);
+//    ui->tableWidgetDatabase->setFrameShape();
+//    ui->tableWidgetDatabase->setFrameShadow();
+//    ui->tableWidgetDatabase->setPalette(palette);
+//    ui->tableWidgetDatabase->horizontalHeader()->setFont(hfont);
 
     ui->tableWidgetPurchase->setAlternatingRowColors(true);
     ui->tableWidgetPurchase->verticalHeader()->setHidden(true);
     ui->tableWidgetPurchase->setShowGrid(true);
     ui->tableWidgetPurchase->setSortingEnabled(true);
+    ui->tableWidgetPurchase->setSelectionBehavior(QAbstractItemView::SelectRows);
+//    ui->tableWidgetPurchase->setFrameShape();
+//    ui->tableWidgetPurchase->setFrameShadow();
+//    ui->tableWidgetPurchase->setPalette(palette);
+//    ui->tableWidgetPurchase->horizontalHeader()->setFont(hfont);
 
     ui->lineEditTotalAmount->setText("0.00");
+    ui->lineEditTotalAmount->setAlignment(Qt::AlignHCenter);
     ui->lineEditTotalAmount->setEnabled(false);
 
-    //ui->tableWidget_2->sortItems();
-
-    c = Connection("QMYSQL", "localhost", "mydb", "root", "");
-    c.setQuerry("../PharmacyGUI/select.sql");
-    c.execSelectQuerry();
-    c.printTable();
-
-    //OSVEZAVA TABELU PRE NEGO STO JE NAPRAVI
-    refreshDatabaseTable();
+//    ui->tableWidget_2->sortItems()
+//    refreshDatabaseTable();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::resizeEvent(QResizeEvent *event)
+{
+    QMainWindow::resizeEvent(event);
+    refreshDatabaseTable();
+    refreshPurchaseTable();
 }
 
 void MainWindow::buttonPrint_clicked()
@@ -93,9 +110,15 @@ void MainWindow::tableWidgetDatabase_cellDoubleClicked(int row, int column)
         int n = QInputDialog::getInt(this, "Unesite kolicinu", "Kolicina");
         if(n>0 && n+c.purchaseAmmount(r[0])<=std::stoi(r[4]))
         {
-            c.addPurchase({r[0], r[1], r[2], std::to_string(n), std::to_string(std::stod(r[3])*n)});
+            std::stringstream stream;
+            double addPurchase = std::stod(r[3])*n;
+            double currTotal = std::stod(ui->lineEditTotalAmount->text().toStdString());
+
+            c.addPurchase({r[0], r[1], r[2], std::to_string(n), std::to_string(addPurchase)});
             refreshPurchaseTable();
-            ui->lineEditTotalAmount->setText(std::to_string(std::stod(ui->lineEditTotalAmount->text().toStdString())+std::stod(r[3])*n).c_str());
+
+            stream << std::fixed << std::setprecision(2) << currTotal+addPurchase;
+            ui->lineEditTotalAmount->setText(stream.str().c_str());
         }
     }
 }
@@ -134,21 +157,18 @@ void MainWindow::refreshDatabaseTable()
 
     std::vector<std::vector<std::string> > tab = c.table();
     ui->tableWidgetDatabase->clear();
-    ui->tableWidgetDatabase->setRowCount(tab.size()+1);
+    ui->tableWidgetDatabase->setRowCount(tab.size());
     ui->tableWidgetDatabase->setColumnCount(4);
 
 //    ui->tableWidgetDatabase->setStyleSheet("color: rgb(0,0,0);");
     for(auto i=0; i<ui->tableWidgetDatabase->rowCount(); i++)
         for(auto j=0; j<4; j++)
         {
-            if(i != ui->tableWidgetDatabase->rowCount()-1)
-                ui->tableWidgetDatabase->setItem(i, j, new QTableWidgetItem(tab[i][j+1].c_str()));
-            else
-                ui->tableWidgetDatabase->setItem(i, j, new QTableWidgetItem(""));
+            ui->tableWidgetDatabase->setItem(i, j, new QTableWidgetItem(tab[i][j+1].c_str()));
             ui->tableWidgetDatabase->item(i, j)->setFlags(Qt::ItemIsDragEnabled | Qt::ItemIsSelectable | Qt::ItemIsEnabled);
         }
 
-    ui->tableWidgetDatabase->horizontalHeader()->setFont(QFont("Cantarell", 10, 100, false));
+//    ui->tableWidgetDatabase->horizontalHeader()->setFont(QFont("Cantarell", 10, 100, false));
 //    ui->tableWidgetDatabase->horizontalHeader()->setStyleSheet("color: rgb(92,7,134);");
     ui->tableWidgetDatabase->setHorizontalHeaderItem(0, new QTableWidgetItem("PROIZVOD"));
     ui->tableWidgetDatabase->setHorizontalHeaderItem(1, new QTableWidgetItem("DOBAVLJAC"));
@@ -157,27 +177,26 @@ void MainWindow::refreshDatabaseTable()
     ui->tableWidgetDatabase->setColumnWidth(0, std::floor(width/4));
     ui->tableWidgetDatabase->setColumnWidth(1, std::floor(width/4));
     ui->tableWidgetDatabase->setColumnWidth(2, std::floor(width/4));
-    ui->tableWidgetDatabase->setColumnWidth(3, std::floor(width/4)-1);
+    ui->tableWidgetDatabase->setColumnWidth(3, std::floor(width/4)-2);
 }
 
 void MainWindow::refreshPurchaseTable()
 {
-    std::vector<std::vector<std::string> > purchase = c.purchase();
-
-    QPalette palette = ui->tableWidgetPurchase->palette();
-    QFont hfont = ui->tableWidgetDatabase->horizontalHeader()->font();
-//    QFont tfont = ui->tableWidget->font();
-
     int width = ui->tableWidgetPurchase->width();
+    std::vector<std::vector<std::string> > pur = c.purchase();
 
     ui->tableWidgetPurchase->clear();
-    ui->tableWidgetPurchase->setRowCount(purchase.size());
+    ui->tableWidgetPurchase->setRowCount(pur.size());
     ui->tableWidgetPurchase->setColumnCount(4);
-    //ui->tableWidgetPurchase->setPalette(palette);
-    //ui->tableWidgetPurchase->setFrameShape(ui->tableWidgetDatabase->frameShape());
-    //ui->tableWidgetPurchase->setFrameShadow(ui->tableWidgetDatabase->frameShadow());
-    //ui->tableWidgetPurchase->horizontalHeader()->setFont(hfont);
 
+    //ui->tableWidget_2->setStyleSheet("color: rgb(0, 0, 0);");
+    for(unsigned i=0; i<pur.size(); i++)
+        for(unsigned j=0; j<4; j++)
+        {
+            ui->tableWidgetPurchase->setItem(i, j, new QTableWidgetItem(pur[i][j+1].c_str()));
+            ui->tableWidgetPurchase->item(i, j)->setFlags(Qt::ItemIsDragEnabled | Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+        }
+    std::cout << width << std::endl;
     ui->tableWidgetPurchase->setHorizontalHeaderItem(0, new QTableWidgetItem("PROIZVOD"));
     ui->tableWidgetPurchase->setHorizontalHeaderItem(1, new QTableWidgetItem("DOBAVLJAC"));
     ui->tableWidgetPurchase->setHorizontalHeaderItem(2, new QTableWidgetItem("KOLICINA"));
@@ -185,13 +204,5 @@ void MainWindow::refreshPurchaseTable()
     ui->tableWidgetPurchase->setColumnWidth(0, std::floor(width/4));
     ui->tableWidgetPurchase->setColumnWidth(1, std::floor(width/4));
     ui->tableWidgetPurchase->setColumnWidth(2, std::floor(width/4));
-    ui->tableWidgetPurchase->setColumnWidth(3, std::floor(width/4)-1);
-
-    //ui->tableWidget_2->setStyleSheet("color: rgb(0, 0, 0);");
-    for(unsigned i=0; i<purchase.size(); i++)
-        for(unsigned j=0; j<4; j++)
-        {
-            ui->tableWidgetPurchase->setItem(i, j, new QTableWidgetItem(purchase[i][j+1].c_str()));
-            ui->tableWidgetPurchase->item(i, j)->setFlags(Qt::ItemIsDragEnabled | Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-        }
+    ui->tableWidgetPurchase->setColumnWidth(3, std::floor(width/4));
 }
