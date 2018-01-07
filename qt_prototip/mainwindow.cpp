@@ -70,13 +70,15 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 
 void MainWindow::buttonPrint_clicked()
 {
+    static int id;
     if(c.purchase().size() != 0)
     {
         QSqlQuery q1;
         QSqlQuery q2;
 
-        q1.prepare("insert into RACUN values (0, 2, ?, current_date, \"kes\")");
-        q1.bindValue(0, ui->lineEditTotalAmount->text());
+        q1.prepare("insert into RACUN values (?, 2, ?, \"kes\", current_date)");
+        q1.bindValue(0, id);
+        q1.bindValue(1, ui->lineEditTotalAmount->text());
         c.setQuerry(q1);
         c.execQuerry();
 
@@ -84,19 +86,22 @@ void MainWindow::buttonPrint_clicked()
         for(unsigned i=0; i<pur.size(); i++)
         {
             q2.clear();
-            q2.prepare("insert into KUPOVINA values (0, ?, NULL, ?, NULL)");
-            q2.bindValue(0, pur[i][0].c_str());
-            q2.bindValue(1, pur[i][3].c_str());
+            q2.prepare("insert into KUPOVINA values (?, ?, ?, ?, NULL, NULL)");
+            q2.bindValue(0, id);
+            q2.bindValue(1, pur[i][0].c_str());
+            q2.bindValue(2, pur[i][3].c_str());
+            q2.bindValue(3, pur[i][4].c_str());
 
             c.setQuerry(q2);
             c.execQuerry();
         }
 
+        id++;
         c.clearPurchase();
         refreshPurchaseTable();
         ui->lineEditTotalAmount->setText("0.00");
 
-        c.setQuerry("../PharmacyGUI/select.sql");
+        c.setQuerry("../Pharmacy/select.sql");
         c.execQuerry();
         refreshDatabaseTable();
     }
