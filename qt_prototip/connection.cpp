@@ -21,7 +21,7 @@ Connection::Connection(std::string driver, QString host, QString dbName, QString
     }
 
     setQuerry("../Pharmacy/select.sql");
-    execSelectQuerry();
+    execSelectQuerry1();
     printTable();
 }
 
@@ -106,6 +106,16 @@ int Connection::purchaseAmmount(std::string id)
     return _purchaseAmmount[id];
 }
 
+unsigned Connection::billId() const
+{
+    return _billId;
+}
+
+void Connection::setBillId(const unsigned &billId)
+{
+    _billId = billId;
+}
+
 
 void Connection::setQuerry(std::string path)
 {
@@ -120,7 +130,7 @@ void Connection::setQuerry(const QSqlQuery q)
     _querry = q;
 }
 
-void Connection::execSelectQuerry()
+void Connection::execSelectQuerry1()
 {
     _table.clear();
     while(_querry.next())
@@ -132,9 +142,22 @@ void Connection::execSelectQuerry()
         }
         addTableRow(row);
     }
+    _querry.finish();
+}
+
+void Connection::execSelectQuerry2()
+{
+    _querry.next();
+    if(!_querry.value(0).isNull())
+        _billId = std::stoul(_querry.value(0).toString().toStdString());
+    else
+        _billId = 0;
+
+    _querry.finish();
 }
 
 void Connection::execQuerry()
 {
     _querry.exec();
+    _querry.finish();
 }

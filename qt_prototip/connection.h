@@ -13,7 +13,8 @@ public:
 
     void setQuerry(std::string path);
     void setQuerry(const QSqlQuery q);
-    void execSelectQuerry();
+    void execSelectQuerry1();
+    void execSelectQuerry2();
     void execQuerry();
 
     void addTableRow(std::vector<std::string> row);
@@ -28,6 +29,8 @@ public:
     void clearPurchase();
 
     int purchaseAmmount(std::string id);
+    unsigned billId() const;
+    void setBillId(const unsigned &billId);
 
 private:
     QSqlDatabase _db;
@@ -35,6 +38,7 @@ private:
     std::vector<std::vector<std::string> > _table;
     std::vector<std::vector<std::string> > _purchase;
     std::map<std::string, int> _purchaseAmmount;
+    unsigned _billId;
 };
 
 #endif // CONNECTION_H

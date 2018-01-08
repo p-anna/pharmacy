@@ -37,6 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
 //    ui->tableWidgetDatabase->setFrameShadow();
 //    ui->tableWidgetDatabase->setPalette(palette);
 //    ui->tableWidgetDatabase->horizontalHeader()->setFont(hfont);
+    //ui->tableWidgetDatabase->resize(778, 191);
 
     ui->tableWidgetPurchase->setAlternatingRowColors(true);
     ui->tableWidgetPurchase->verticalHeader()->setHidden(true);
@@ -47,6 +48,7 @@ MainWindow::MainWindow(QWidget *parent) :
 //    ui->tableWidgetPurchase->setFrameShadow();
 //    ui->tableWidgetPurchase->setPalette(palette);
 //    ui->tableWidgetPurchase->horizontalHeader()->setFont(hfont);
+    //ui->tableWidgetPurchase->resize(555, 192);
 
     ui->lineEditTotalAmount->setText("0.00");
     ui->lineEditTotalAmount->setAlignment(Qt::AlignHCenter);
@@ -64,20 +66,31 @@ MainWindow::~MainWindow()
 void MainWindow::resizeEvent(QResizeEvent *event)
 {
     QMainWindow::resizeEvent(event);
+
+    /*
+    std::cout << ui->tableWidgetDatabase->width() << " "
+              << ui->tableWidgetPurchase->width() << std::endl;
+    std::cout << ui->tableWidgetDatabase->height() << " "
+              << ui->tableWidgetPurchase->height() << std::endl;*/
+
     refreshDatabaseTable();
     refreshPurchaseTable();
 }
 
 void MainWindow::buttonPrint_clicked()
 {
-    static int id;
     if(c.purchase().size() != 0)
     {
+        QSqlQuery q0;
         QSqlQuery q1;
         QSqlQuery q2;
 
+        q0 = QSqlQuery("select min(id_racuna) from RACUN where id_racuna+1 not in (select id_racuna from RACUN);");
+        c.setQuerry(q0);
+        c.execSelectQuerry2();
+
         q1.prepare("insert into RACUN values (?, 2, ?, \"kes\", current_date)");
-        q1.bindValue(0, id);
+        q1.bindValue(0, c.billId()+1);
         q1.bindValue(1, ui->lineEditTotalAmount->text());
         c.setQuerry(q1);
         c.execQuerry();
@@ -87,7 +100,7 @@ void MainWindow::buttonPrint_clicked()
         {
             q2.clear();
             q2.prepare("insert into KUPOVINA values (?, ?, ?, ?, NULL, NULL)");
-            q2.bindValue(0, id);
+            q2.bindValue(0, c.billId()+1);
             q2.bindValue(1, pur[i][0].c_str());
             q2.bindValue(2, pur[i][3].c_str());
             q2.bindValue(3, pur[i][4].c_str());
@@ -96,13 +109,13 @@ void MainWindow::buttonPrint_clicked()
             c.execQuerry();
         }
 
-        id++;
         c.clearPurchase();
         refreshPurchaseTable();
         ui->lineEditTotalAmount->setText("0.00");
+        ui->lineEditSearch->setText("");
 
         c.setQuerry("../Pharmacy/select.sql");
-        c.execQuerry();
+        c.execSelectQuerry1();
         refreshDatabaseTable();
     }
 }
@@ -151,7 +164,7 @@ void MainWindow::lineEditSearch_textChanged(const QString &pattern)
     else
         c.setQuerry("../Pharmacy/select.sql");
 
-    c.execSelectQuerry();
+    c.execSelectQuerry1();
     refreshDatabaseTable();
 }
 
@@ -182,7 +195,7 @@ void MainWindow::refreshDatabaseTable()
     ui->tableWidgetDatabase->setColumnWidth(0, std::floor(width/4));
     ui->tableWidgetDatabase->setColumnWidth(1, std::floor(width/4));
     ui->tableWidgetDatabase->setColumnWidth(2, std::floor(width/4));
-    ui->tableWidgetDatabase->setColumnWidth(3, std::floor(width/4)-2);
+    ui->tableWidgetDatabase->setColumnWidth(3, std::floor(width/4));
 }
 
 void MainWindow::refreshPurchaseTable()
