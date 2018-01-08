@@ -20,7 +20,7 @@ Connection::Connection(std::string driver, QString host, QString dbName, QString
         std::exit(-1);
     }
 
-    setQuerry("../PharmacyGUI/select.sql");
+    setQuerry("../Pharmacy/select.sql");
     execSelectQuerry();
     printTable();
 }

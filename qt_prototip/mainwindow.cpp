@@ -149,7 +149,7 @@ void MainWindow::lineEditSearch_textChanged(const QString &pattern)
         c.setQuerry(q);
     }
     else
-        c.setQuerry("../PharmacyGUI/select.sql");
+        c.setQuerry("../Pharmacy/select.sql");
 
     c.execSelectQuerry();
     refreshDatabaseTable();
@@ -201,7 +201,7 @@ void MainWindow::refreshPurchaseTable()
             ui->tableWidgetPurchase->setItem(i, j, new QTableWidgetItem(pur[i][j+1].c_str()));
             ui->tableWidgetPurchase->item(i, j)->setFlags(Qt::ItemIsDragEnabled | Qt::ItemIsSelectable | Qt::ItemIsEnabled);
         }
-    std::cout << width << std::endl;
+    //std::cout << width << std::endl;
     ui->tableWidgetPurchase->setHorizontalHeaderItem(0, new QTableWidgetItem("PROIZVOD"));
     ui->tableWidgetPurchase->setHorizontalHeaderItem(1, new QTableWidgetItem("DOBAVLJAC"));
     ui->tableWidgetPurchase->setHorizontalHeaderItem(2, new QTableWidgetItem("KOLICINA"));
