@@ -16,6 +16,12 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    connect(ui->buttonHome, SIGNAL(clicked()), this, SLOT(buttonHome_clicked()));
+    connect(ui->buttonDatabase, SIGNAL(clicked()), this, SLOT(buttonDatabase_clicked()));
+    connect(ui->buttonPurchase, SIGNAL(clicked()), this, SLOT(buttonPurchase_clicked()));
+    connect(ui->buttonOrder, SIGNAL(clicked()), this, SLOT(buttonOrder_clicked()));
+    connect(ui->buttonHelp, SIGNAL(clicked()), this, SLOT(buttonHelp_clicked()));
+    connect(ui->buttonExit, SIGNAL(clicked()), this, SLOT(buttonExit_clicked()));
     connect(ui->buttonPrint, SIGNAL(clicked()), this, SLOT(buttonPrint_clicked()));
     connect(ui->tableWidgetDatabase, SIGNAL(cellDoubleClicked(int, int)),
             this, SLOT(tableWidgetDatabase_cellDoubleClicked(int,int)));
@@ -67,14 +73,41 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 {
     QMainWindow::resizeEvent(event);
 
-    /*
-    std::cout << ui->tableWidgetDatabase->width() << " "
-              << ui->tableWidgetPurchase->width() << std::endl;
-    std::cout << ui->tableWidgetDatabase->height() << " "
-              << ui->tableWidgetPurchase->height() << std::endl;*/
-
     refreshDatabaseTable();
     refreshPurchaseTable();
+}
+
+
+void MainWindow::buttonHome_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::buttonDatabase_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(1);
+}
+
+void MainWindow::buttonPurchase_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(2);
+    refreshDatabaseTable();
+    refreshPurchaseTable();
+}
+
+void MainWindow::buttonOrder_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(3);
+}
+
+void MainWindow::buttonHelp_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(4);
+}
+
+void MainWindow::buttonExit_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(5);
 }
 
 void MainWindow::buttonPrint_clicked()
@@ -119,6 +152,7 @@ void MainWindow::buttonPrint_clicked()
         refreshDatabaseTable();
     }
 }
+
 
 void MainWindow::tableWidgetDatabase_cellDoubleClicked(int row, int column)
 {
@@ -192,10 +226,10 @@ void MainWindow::refreshDatabaseTable()
     ui->tableWidgetDatabase->setHorizontalHeaderItem(1, new QTableWidgetItem("DOBAVLJAC"));
     ui->tableWidgetDatabase->setHorizontalHeaderItem(2, new QTableWidgetItem("CENA"));
     ui->tableWidgetDatabase->setHorizontalHeaderItem(3, new QTableWidgetItem("KOLICINA"));
-    ui->tableWidgetDatabase->setColumnWidth(0, std::floor(width/4));
-    ui->tableWidgetDatabase->setColumnWidth(1, std::floor(width/4));
-    ui->tableWidgetDatabase->setColumnWidth(2, std::floor(width/4));
-    ui->tableWidgetDatabase->setColumnWidth(3, std::floor(width/4));
+    ui->tableWidgetDatabase->setColumnWidth(0, std::floor(width/4)-1);
+    ui->tableWidgetDatabase->setColumnWidth(1, std::floor(width/4)-1);
+    ui->tableWidgetDatabase->setColumnWidth(2, std::floor(width/4)-1);
+    ui->tableWidgetDatabase->setColumnWidth(3, std::floor(width/4)-1);
 }
 
 void MainWindow::refreshPurchaseTable()
@@ -219,8 +253,8 @@ void MainWindow::refreshPurchaseTable()
     ui->tableWidgetPurchase->setHorizontalHeaderItem(1, new QTableWidgetItem("DOBAVLJAC"));
     ui->tableWidgetPurchase->setHorizontalHeaderItem(2, new QTableWidgetItem("KOLICINA"));
     ui->tableWidgetPurchase->setHorizontalHeaderItem(3, new QTableWidgetItem("IZNOS"));
-    ui->tableWidgetPurchase->setColumnWidth(0, std::floor(width/4));
-    ui->tableWidgetPurchase->setColumnWidth(1, std::floor(width/4));
-    ui->tableWidgetPurchase->setColumnWidth(2, std::floor(width/4));
-    ui->tableWidgetPurchase->setColumnWidth(3, std::floor(width/4));
+    ui->tableWidgetPurchase->setColumnWidth(0, std::floor(width/4)-1);
+    ui->tableWidgetPurchase->setColumnWidth(1, std::floor(width/4)-1);
+    ui->tableWidgetPurchase->setColumnWidth(2, std::floor(width/4)-1);
+    ui->tableWidgetPurchase->setColumnWidth(3, std::floor(width/4)-1);
 }

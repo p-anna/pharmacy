@@ -16,6 +16,12 @@ public:
     ~MainWindow();
 
 private slots:
+    void buttonHome_clicked();
+    void buttonDatabase_clicked();
+    void buttonPurchase_clicked();
+    void buttonOrder_clicked();
+    void buttonHelp_clicked();
+    void buttonExit_clicked();
     void buttonPrint_clicked();
     void tableWidgetDatabase_cellDoubleClicked(int row, int column);
     void tableWidgetPurchase_cellDoubleClicked(int row, int column);
