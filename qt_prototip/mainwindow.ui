@@ -13,6 +13,160 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget {
+   background-color: #f7c68f;
+}
+
+/* Nice Windows-XP-style password character. */
+QLineEdit[echoMode=&quot;2&quot;] {
+    lineedit-password-character: 9679;
+}
+
+/* We provide a min-width and min-height for push buttons
+   so that they look elegant regardless of the width of the text. */
+QPushButton {
+    background-color: #c38e63;
+    border-width: 2px;
+    border-color: #c97842;
+    border-style: solid;
+    border-radius: 5;
+    padding: 3px;
+    min-width: 9ex;
+    min-height: 2.5ex;
+}
+
+QPushButton:hover {
+   background-color: #eaab81;
+}
+
+/* Increase the padding, so the text is shifted when the button is
+   pressed. */
+QPushButton:pressed {
+    padding-left: 5px;
+    padding-top: 5px;
+    background-color: #db9f5c;
+}
+
+QLabel, QAbstractButton {
+    font: bold;
+}
+
+/* Mark mandatory fields with a brownish color. */
+.mandatory {
+    color: brown;
+}
+
+/* Bold text on status bar looks awful. */
+QStatusBar QLabel {
+   font: normal;
+}
+
+QStatusBar::item {
+    border-width: 1;
+    border-color: darkkhaki;
+    border-style: solid;
+    border-radius: 2;
+}
+
+QComboBox, QLineEdit, QSpinBox, QTextEdit, QListView {
+    background-color: cornsilk;
+    selection-color: #0a214c; 
+    selection-background-color: #C19A6B;
+}
+
+QComboBox::drop-down:hover {
+    image: url(:/home/pharmacy/kucica.jpg);
+}
+
+QListView {
+    show-decoration-selected: 1;
+}
+
+QListView::item:hover {
+    background-color: wheat;
+}
+
+/* We reserve 1 pixel space in padding. When we get the focus,
+   we kill the padding and enlarge the border. This makes the items
+   glow. */
+QLineEdit, QFrame {
+    border-width: 2px;
+    padding: 1px;
+    border-style: solid;
+    border-color: #db9f5c;
+    border-radius: 5px;
+}
+
+/* As mentioned above, eliminate the padding and increase the border. */
+QLineEdit:focus, QFrame:focus {
+    border-width: 3px;
+    padding: 0px;
+}
+
+/* A QLabel is a QFrame ... */
+QLabel {
+    border: none;
+    padding: 0;
+    background: none;
+}
+
+/* A QToolTip is a QLabel ... */
+QToolTip {
+    border: 2px solid #db9f5c;
+    padding: 5px;
+    border-radius: 3px;
+    opacity: 200;
+}
+
+/* Nice to have the background color change when hovered. */
+QRadioButton:hover, QCheckBox:hover {
+    background-color: wheat;
+}
+
+/* Force the dialog's buttons to follow the Windows guidelines. */
+QDialogButtonBox {
+    button-layout: 0;
+}
+
+/*-------------------------------------------------------------------------------------------Menu bar------------------------------------------------------------------------------------------------------ --*/
+QMenuBar {
+    background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #d68844, stop:1 #a56126); /*svetli braon,  tamni braon*/
+}
+
+QMenuBar::item {
+    spacing: 3px; /* spacing between menu bar items */
+    padding: 5px 4px;
+    background: #db9f6f;
+    border-radius: 4px;
+    color: #593920;
+}
+
+QMenuBar::item:selected { /* when selected using mouse or keyboard */
+    background: #f2c196; /* boja koze */
+}
+
+QMenuBar::item:pressed {
+    background: #8c7252; /* sivi braon */
+}
+
+/*--------------------------------------------------------------------------------Menu ----------------------------------------------------------------------------------------------------------------------*/
+QMenu {
+    background-color: #f7c68f; /* sets background of the menu */
+    border: 1px solid black;
+}
+
+QMenu::item {
+    /* sets background of menu item. set this to something non-transparent
+        if you want menu color and menu item color to be different */
+    background-color: #f2ca9d;
+}
+
+QMenu::item:selected { /* when user selects item using mouse or keyboard */
+    background-color: #a36c35;
+}
+</string>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
@@ -93,8 +247,8 @@
          <rect>
           <x>270</x>
           <y>130</y>
-          <width>80</width>
-          <height>25</height>
+          <width>82</width>
+          <height>30</height>
          </rect>
         </property>
         <property name="text">
@@ -108,8 +262,8 @@
          <rect>
           <x>270</x>
           <y>130</y>
-          <width>80</width>
-          <height>25</height>
+          <width>82</width>
+          <height>30</height>
          </rect>
         </property>
         <property name="text">
@@ -227,8 +381,8 @@
          <rect>
           <x>290</x>
           <y>130</y>
-          <width>80</width>
-          <height>25</height>
+          <width>82</width>
+          <height>30</height>
          </rect>
         </property>
         <property name="text">
@@ -242,8 +396,8 @@
          <rect>
           <x>290</x>
           <y>140</y>
-          <width>80</width>
-          <height>25</height>
+          <width>82</width>
+          <height>30</height>
          </rect>
         </property>
         <property name="text">
@@ -257,8 +411,8 @@
          <rect>
           <x>270</x>
           <y>140</y>
-          <width>80</width>
-          <height>25</height>
+          <width>82</width>
+          <height>30</height>
          </rect>
         </property>
         <property name="text">
@@ -276,7 +430,7 @@
      <x>0</x>
      <y>0</y>
      <width>822</width>
-     <height>22</height>
+     <height>29</height>
     </rect>
    </property>
   </widget>
