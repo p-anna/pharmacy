@@ -372,7 +372,23 @@ QMenu::item:selected { /* when user selects item using mouse or keyboard */
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEditTotalAmount"/>
+              <widget class="QLineEdit" name="lineEditTotalAmount">
+               <property name="styleSheet">
+                <string notr="true">QLineEdit {
+background-color: #87a8dd;
+
+border-width: 0px;
+
+border-color: #c97842;
+
+border-radius: 10;
+
+padding: 0px;
+
+color: #14489b;
+}</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </widget>

@@ -1,8 +1,0 @@
-1. Instalirajte Qt sa najnovijim online instalerom, sa njihove zvanicne stranice.
-Pri toj instalaciji OBAVEZNO stiklirajte zeljeni kompajler ALI I NJEGOV TOOLKIT, koji je na samom dnu liste.
-Izgleda zapravo kao da birate kompajler dvaput, na dva razlicita mesta. Ako to ne uradite, projekat se verovatno nece ni otvoriti.
-
-2. Ovo je samo inicijalna verzija prototipa, bice nadogradnji. Za sada je sve u lokalu, iskljucivo na klijentskoj strani.
-Nema nikakvih konekcija nigde.
-
-3. Dogovoricemo se narednih dana oko toga sta sve treba / zelimo da se nadje u prototipu. Izvinjavam se sto kasnim sa ovim operacijama.
