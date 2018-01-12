@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>photoMissing.png</file>
+        <file>question.png</file>
+    </qresource>
+</RCC>
